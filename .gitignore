@@ -1,0 +1,9 @@
+node_modules/
+bin/
+obj/
+auth.json
+*.njsproj
+Yangarang/logFile.txt
+*.sln
+*.bin
+.vs/Yangarang/v17/.suo
