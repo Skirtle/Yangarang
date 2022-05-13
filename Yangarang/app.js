@@ -31,24 +31,25 @@ client.on("message", (message) => {
 	// Ignore bot messages
 	if(message.author.bot) return;
 	
-	// Important information from message
-	var messageContent = message.content.toLowerCase();
-	var command = messageContent.slice(2, messageContent.length);
-	var commandPrefix = messageContent.slice(0, 2);
+	// Extract prefix
+	var commandPrefix = message.content.toLowerCase().slice(0, 2);
 
 	// Split between admin and regular commands
 	if (commandPrefix == adminPrefix) {
-		adminCommands(message, command);
+		adminCommands(message);
 	}
 	else if (commandPrefix == prefix) {
-		regularCommands(message, command);
+		regularCommands(message);
 	}
 
 
 });
 
 
-function adminCommands(message, command) {
+function adminCommands(message) {
+	var messageContent = message.content.toLowerCase();
+	var command = messageContent.slice(2, messageContent.length);
+
 	// Restart bot
 	if ((command == "restart" || command == "r") && message.author.id == "104935141465456640") {
 		message.channel.send("Restarting...");
@@ -59,9 +60,15 @@ function adminCommands(message, command) {
 	//
 }
 
-function regularCommands(message, command) {
+function regularCommands(message) {
+	var messageContent = message.content.toLowerCase();
+	var fullCommand = messageContent.slice(2, messageContent.length);
+	var splicedCommand = fullCommand.split(" ");
+	var shortCommand = splicedCommand[0];
+	var pastCommand = splicedCommand.slice(1, splicedCommand.length);
+
 	// Help (embed)
-	if (command == "help" || command == "h") {
+	if (shortCommand == "help" || shortCommand == "h") {
 		const helpMsg = {
 			color: 0xffee57,
 			title: 'Helping of help',
@@ -82,6 +89,28 @@ function regularCommands(message, command) {
 
 		message.channel.send({ embed: helpMsg });
 	}
+
+	// uwu-ize
+	else if (shortCommand == "uwu") {
+		var uwuMsg = uwuize(pastCommand.join(" "));
+		message.channel.send(uwuMsg);
+	}
+}
+
+function uwuize(msg) {
+	let newMsg = msg;
+	newMsg = newMsg.replace(/l/g, "w");
+	newMsg = newMsg.replace(/you /g, "uwu ");
+	newMsg = newMsg.replace(/at/g, "awt");
+	newMsg = newMsg.replace(/do /g, "duwu ");
+	newMsg = newMsg.replace(/wiww/g, "will");
+	newMsg = newMsg.replace(/i'ww/g, "i'll");
+	newMsg = newMsg.replace(/r/g, "w");
+	newMsg = newMsg.replace(/thewe/g, "dere");
+	newMsg = newMsg.replace(/uwu’we/g, "ur'e");
+	newMsg = newMsg.replace(/the /g, "da ");
+
+	return newMsg;
 }
 
 client.login(config.token);
