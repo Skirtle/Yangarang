@@ -2,11 +2,11 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 var fs = require("fs");
-var cron = require("cron");
+var config = require('./config.json');
 
 // Set the variables for all
-let prefix = "y!";
-let adminPrefix = "y~";
+let prefix = config.prefix;
+let adminPrefix = config.adminPrefix;
 
 var prefixLen = prefix.length;
 var adminPrefixLen = adminPrefix.length;
@@ -28,17 +28,66 @@ client.on('ready', () => {
 
 //Start reading messages
 client.on("message", (message) => {
-
-	//If message from a bot, ignore
+	// Ignore bot messages
 	if(message.author.bot) return;
 	
-	//Set up variables, name and lowercase message
+	
 	var fullUsername = message.author.username+"#"+message.author.discriminator;
 	var msg = message.content.toLowerCase();
+	var command = msg.slice(2, msg.length);
 
-	console.log(fullUsername + " " + msg);
+	// Split between admin and regular commands
+	if (msg.slice(0, 1) == prefix) { }
+
+	if ((command == "restart" || command == "r") && message.author.id == "104935141465456640") {
+		message.channel.send("Restarting...");
+		console.log("Restarting bot");
+		client.destroy();
+	}
+
+	if (command == "help" || command == "h") {
+		const helpMsg = {
+			color: 0xffee57,
+			title: 'You need help?!',
+			description: 'The prefix is "y!"',
+			fields: [
+				{
+					name: 'help',
+					value: 'Get thismessage',
+				},
+				{
+					name: 'joke/pun',
+					value: 'Sends a joke',
+				},
+				{
+					name: 'credits',
+					value: 'Shows those who have helped',
+				},
+				{
+					name: 'ping',
+					value: 'Pong!',
+				},
+				{
+					name: 'kick [user]',
+					value: 'Boots them in the hiney',
+				},
+				{
+					name: 'uwu [text]',
+					value: 'Ever wanna just... UwU?',
+				},
+				{
+					name: 'uptime/ut',
+					value: 'How old even am I?',
+				},
+			],
+			timestamp: new Date(),
+			footer: {
+				text: 'uwu',
+			},
+		};
+		message.channel.send({ embed: helpMsg });
+	}
 });
 
 
-
-client.login("NDk4MzA1NTc4OTc2ODA0ODY1.DpsBWw.HEmRU4KNkhCgYfwQ-pexkGNhbMc");
+client.login(config.token);

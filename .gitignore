@@ -7,3 +7,4 @@ Yangarang/logFile.txt
 *.sln
 *.bin
 .vs/Yangarang/v17/.suo
+Yangarang/config.json
