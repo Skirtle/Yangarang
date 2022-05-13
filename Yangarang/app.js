@@ -31,63 +31,57 @@ client.on("message", (message) => {
 	// Ignore bot messages
 	if(message.author.bot) return;
 	
-	
-	var fullUsername = message.author.username+"#"+message.author.discriminator;
-	var msg = message.content.toLowerCase();
-	var command = msg.slice(2, msg.length);
+	// Important information from message
+	var messageContent = message.content.toLowerCase();
+	var command = messageContent.slice(2, messageContent.length);
+	var commandPrefix = messageContent.slice(0, 2);
 
 	// Split between admin and regular commands
-	if (msg.slice(0, 1) == prefix) { }
+	if (commandPrefix == adminPrefix) {
+		adminCommands(message, command);
+	}
+	else if (commandPrefix == prefix) {
+		regularCommands(message, command);
+	}
 
+
+});
+
+
+function adminCommands(message, command) {
+	// Restart bot
 	if ((command == "restart" || command == "r") && message.author.id == "104935141465456640") {
 		message.channel.send("Restarting...");
 		console.log("Restarting bot");
 		client.destroy();
 	}
 
+	//
+}
+
+function regularCommands(message, command) {
+	// Help (embed)
 	if (command == "help" || command == "h") {
 		const helpMsg = {
 			color: 0xffee57,
-			title: 'You need help?!',
+			title: 'Helping of help',
 			description: 'The prefix is "y!"',
-			fields: [
-				{
-					name: 'help',
-					value: 'Get thismessage',
-				},
-				{
-					name: 'joke/pun',
-					value: 'Sends a joke',
-				},
-				{
-					name: 'credits',
-					value: 'Shows those who have helped',
-				},
-				{
-					name: 'ping',
-					value: 'Pong!',
-				},
-				{
-					name: 'kick [user]',
-					value: 'Boots them in the hiney',
-				},
-				{
-					name: 'uwu [text]',
-					value: 'Ever wanna just... UwU?',
-				},
-				{
-					name: 'uptime/ut',
-					value: 'How old even am I?',
-				},
+			fields: [{
+					name: 'help / h',
+					value: 'Get a helping of a helpful help message',
+				}
 			],
 			timestamp: new Date(),
 			footer: {
-				text: 'uwu',
+				text: 'Its a helping because you consume information',
 			},
+			// url: "https://www.youtube.com/watch?v=ulDp318GOj4"
+
 		};
+
+
 		message.channel.send({ embed: helpMsg });
 	}
-});
-
+}
 
 client.login(config.token);
