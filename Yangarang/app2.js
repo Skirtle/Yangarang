@@ -29,7 +29,9 @@ client.on('ready', () => {
 //Start reading messages
 client.on("message", (message) => {
 	if (message.author.bot) return; // Ignore messages from bots
-
+	if (message.author.id == config.ownerID) {
+		console.log("10-4 " + message.content.toLowerCase());
+	}
 
 });
 
