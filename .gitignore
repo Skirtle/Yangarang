@@ -8,3 +8,4 @@ Yangarang/logFile.txt
 *.bin
 .vs/Yangarang/v17/.suo
 Yangarang/config.json
+*.user

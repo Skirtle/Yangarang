@@ -30,7 +30,12 @@ client.on('ready', () => {
 client.on("message", (message) => {
 	if (message.author.bot) return; // Ignore messages from bots
 	if (message.author.id == config.ownerID) {
-		console.log("10-4 " + message.content.toLowerCase());
+		console.log("10-4");
+	}
+
+	// Retrieve message contents and reply back with same message (if user is Owner)
+	if (message.author.id == config.ownerID) {
+		message.channel.send(message.content.padStart(2, "#"));
 	}
 
 });
