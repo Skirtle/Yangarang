@@ -1,9 +1,9 @@
 {
-  "name": "Punklebot",
-  "version": "1.1.0",
+  "name": "Yangarang",
+  "version": "2.0.0",
   "description": "It's a bot, it rly maeks u thnk",
-  "main": "bot.js",
-  "author": "Yang Xiao Long#8888",
+  "main": "app2.js",
+  "author": "Skirtle#1500",
   "dependencies": {
     "collections": "^5.1.9",
     "cron": "^1.7.1",
