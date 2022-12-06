@@ -15,13 +15,14 @@ var adminPrefixLen = adminPrefix.length;
 //Log login in cmd and set activity on Discord
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	client.user.setActivity(`with my balls [${prefix}]`); 
+	client.user.setActivity(`Recovering from Hell... [${prefix}]`); 
 	console.log("");
 	var today = new Date();
 	var day = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
 	var time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
 	let onTime = `${day} at ${time}`;
-	fs.appendFileSync("logFile.txt", `Bot activated at ${onTime}`+"\n");
+	fs.appendFileSync("logFile.txt", `Bot activated at ${onTime}` + "\n");
+	// console.log(prefix + " " + adminPrefix);
   
 });
 
@@ -76,6 +77,12 @@ function regularCommands(message) {
 			fields: [{
 					name: 'help / h',
 					value: 'Get a helping of a helpful help message',
+
+
+			},
+				{
+					name: "uwu [message]",
+					value: "uwu-ize your message"
 				}
 			],
 			timestamp: new Date(),
@@ -92,8 +99,7 @@ function regularCommands(message) {
 
 	// uwu-ize
 	else if (shortCommand == "uwu") {
-		var uwuMsg = uwuize(pastCommand.join(" "));
-		message.channel.send(uwuMsg);
+		message.channel.send(uwuize(pastCommand.join(" ")));
 	}
 }
 
